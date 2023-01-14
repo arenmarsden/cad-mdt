@@ -1,4 +1,4 @@
-package arenmarden.com.model
+package com.arenmarsden.backend.model
 
 import org.jetbrains.exposed.sql.Table
 

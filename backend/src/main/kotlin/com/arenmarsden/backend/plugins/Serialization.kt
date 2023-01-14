@@ -1,4 +1,4 @@
-package arenmarden.com.plugins
+package com.arenmarsden.backend.plugins
 
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.plugins.contentnegotiation.*

@@ -1,4 +1,4 @@
-package arenmarden.com.plugins
+package com.arenmarsden.backend.plugins
 
 import io.ktor.server.auth.*
 import io.ktor.client.*

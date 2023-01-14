@@ -1,4 +1,4 @@
-package arenmarden.com.plugins
+package com.arenmarsden.backend.plugins
 
 import arenmarden.com.storage.repository.impl.userRepository
 import io.ktor.server.application.*

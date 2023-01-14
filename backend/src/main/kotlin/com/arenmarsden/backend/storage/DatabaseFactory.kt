@@ -1,6 +1,7 @@
-package arenmarden.com.storage
+package com.arenmarsden.backend.storage
 
-import arenmarden.com.model.Users
+import com.arenmarsden.backend.model.Calls
+import com.arenmarsden.backend.model.Users
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
@@ -16,6 +17,7 @@ object DatabaseFactory {
 
         transaction(database) {
             SchemaUtils.create(Users)
+            SchemaUtils.create(Calls)
         }
     }
 
