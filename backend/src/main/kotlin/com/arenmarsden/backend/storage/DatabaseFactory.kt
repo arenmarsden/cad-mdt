@@ -13,7 +13,9 @@ object DatabaseFactory {
     fun init() {
         val driver = "org.postgresql.Driver"
         val jdbcUrl = System.getenv("JDBC_DATABASE_URL")
-        val database = Database.connect(jdbcUrl, driver)
+        val username = System.getenv("JDBC_DATABASE_USERNAME")
+        val password = System.getenv("JDBC_DATABASE_PASSWORD")
+        val database = Database.connect(jdbcUrl, driver, username, password)
 
         transaction(database) {
             SchemaUtils.create(Users)
