@@ -60,7 +60,7 @@ class UserRepositoryImpl : UserRepository {
 val userRepository = UserRepositoryImpl().apply {
     runBlocking {
         if (getAllUsers().isEmpty()) {
-            addUser(User(0, "Admin", "aren.marsden6@gmail.com", Role.ADMIN))
+            addUser(User(0, "Admin", "admin@example.com", Role.ADMIN))
         }
     }
 }
