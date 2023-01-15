@@ -1,7 +1,9 @@
 package com.arenmarsden.backend.model
 
+import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Table
 
+@Serializable
 data class Call(
     val id: Int,
     val name: String,

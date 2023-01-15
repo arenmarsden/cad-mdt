@@ -8,7 +8,7 @@ import com.arenmarsden.backend.storage.service.Service
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 
-class UserService : Service<User> {
+object UserService : Service<User> {
     override suspend fun getAll(): List<User> = dbQuery {
         Users.selectAll().map(::rowToResult)
     }
@@ -26,7 +26,7 @@ class UserService : Service<User> {
     }
 
     override suspend fun update(t: User): User = dbQuery {
-        Users.update({ Users.id eq t.id }) {
+        Users.update({ Users.email eq t.email }) {
             it[name] = t.name
             it[email] = t.email
             it[role] = t.role.name
@@ -35,22 +35,19 @@ class UserService : Service<User> {
         t
     }
 
-    override suspend fun add(t: User): User = dbQuery {
-        val id = Users.insert {
+    override suspend fun add(t: User): User? = dbQuery {
+        val insertStatement = Users.insert {
             it[name] = t.name
             it[email] = t.email
             it[role] = t.role.name
-        } get Users.id
+        }
 
-        t.copy(id = id)
+        insertStatement.resultedValues?.singleOrNull()?.let(::rowToResult)
     }
 
-    override fun rowToResult(row: ResultRow): User {
-        return User(
-            id = row[Users.id],
-            name = row[Users.name],
-            email = row[Users.email],
-            role = Role.valueOf(row[Users.role])
-        )
-    }
+    override fun rowToResult(row: ResultRow) = User(
+        name = row[Users.name],
+        email = row[Users.email],
+        role = Role.valueOf(row[Users.role])
+    )
 }

@@ -9,7 +9,7 @@ import com.arenmarsden.backend.storage.service.Service
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 
-class CallService : Service<Call> {
+object CallService : Service<Call> {
     override suspend fun getAll(): List<Call> = dbQuery {
         Calls.selectAll().map(::rowToResult)
     }
@@ -38,16 +38,16 @@ class CallService : Service<Call> {
         t
     }
 
-    override suspend fun add(t: Call): Call = dbQuery {
-        val id = Calls.insert {
+    override suspend fun add(t: Call): Call? = dbQuery {
+        val st = Calls.insert {
             it[name] = t.name
             it[assignedTo] = t.assignedTo
             it[status] = t.status.name
             it[type] = t.type.name
             it[description] = t.description
-        } get Calls.id
+        }
 
-        t.copy(id = id)
+        st.resultedValues?.singleOrNull()?.let(::rowToResult)
     }
 
     override fun rowToResult(row: ResultRow): Call {
@@ -60,5 +60,4 @@ class CallService : Service<Call> {
             description = row[Calls.description],
         )
     }
-
 }

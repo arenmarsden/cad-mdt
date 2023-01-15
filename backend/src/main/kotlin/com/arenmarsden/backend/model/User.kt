@@ -1,8 +1,10 @@
 package com.arenmarsden.backend.model
 
+import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Table
 
-data class User(val id: Int, val name: String, val email: String, val role: Role)
+@Serializable
+data class User(val name: String, val email: String, val role: Role)
 
 object Users : Table() {
     val id = integer("id").autoIncrement()
