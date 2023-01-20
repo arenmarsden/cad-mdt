@@ -18,8 +18,7 @@ object DatabaseFactory {
         val database = Database.connect(jdbcUrl, driver, username, password)
 
         transaction(database) {
-            SchemaUtils.create(Users)
-            SchemaUtils.create(Calls)
+            SchemaUtils.create(Users, Calls, inBatch = true)
         }
     }
 
